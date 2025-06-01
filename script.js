@@ -198,25 +198,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToTopBtn = document.getElementById('backToTopBtn');
     let scrollTimeout;
 
-    window.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            if (window.scrollY > 400) {
-                backToTopBtn.style.display = 'block';
-                setTimeout(() => backToTopBtn.style.opacity = '1', 50);
-            } else {
-                backToTopBtn.style.opacity = '0';
-                setTimeout(() => backToTopBtn.style.display = 'none', 300);
-            }
-        }, 100);
-    });
-
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.style.display = 'block';
+                    setTimeout(() => backToTopBtn.style.opacity = '1', 50);
+                } else {
+                    backToTopBtn.style.opacity = '0';
+                    setTimeout(() => backToTopBtn.style.display = 'none', 300);
+                }
+            }, 100);
         });
-    });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 
     // Modal functionality
     const ecopointModal = document.getElementById('ecopointModal');
@@ -277,83 +279,93 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Carousel functionality
     const carousel = document.querySelector('.carousel');
-    const slides = document.querySelectorAll('.carousel-slide');
-    const prevButton = document.querySelector('.carousel-button.prev');
-    const nextButton = document.querySelector('.carousel-button.next');
-    const dotsContainer = document.querySelector('.carousel-dots');
-    
-    let currentSlide = 0;
-    const slideCount = slides.length;
+    if (carousel) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevButton = document.querySelector('.carousel-button.prev');
+        const nextButton = document.querySelector('.carousel-button.next');
+        const dotsContainer = document.querySelector('.carousel-dots');
+        
+        let currentSlide = 0;
+        const slideCount = slides.length;
 
-    // Create dots
-    slides.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        dotsContainer.appendChild(dot);
-    });
-
-    const dots = document.querySelectorAll('.dot');
-
-    function updateDots() {
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
-        });
-    }
-
-    function goToSlide(index) {
-        currentSlide = index;
-        const offset = -currentSlide * 100;
-        carousel.style.transform = `translateX(${offset}%)`;
-        updateDots();
-    }
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slideCount;
-        goToSlide(currentSlide);
-    }
-
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + slideCount) % slideCount;
-        goToSlide(currentSlide);
-    }
-
-    // Auto-advance slides every 5 seconds (5000ms)
-    let slideInterval = setInterval(nextSlide, 5000);
-
-    // Não pausar autoplay ao clicar nos botões
-    nextButton.addEventListener('click', () => {
-        nextSlide();
-    });
-    prevButton.addEventListener('click', () => {
-        prevSlide();
-    });
-
-    // Touch support for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    carousel.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-    
-    carousel.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        if (touchEndX < touchStartX - swipeThreshold) {
-            nextSlide();
-        } else if (touchEndX > touchStartX + swipeThreshold) {
-            prevSlide();
+        // Create dots
+        if (dotsContainer) {
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
         }
-    }
 
-    // Initialize first slide
-    goToSlide(0);
+        const dots = document.querySelectorAll('.dot');
+
+        function updateDots() {
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            const offset = -currentSlide * 100;
+            carousel.style.transform = `translateX(${offset}%)`;
+            updateDots();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slideCount;
+            goToSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+            goToSlide(currentSlide);
+        }
+
+        // Auto-advance slides every 5 seconds (5000ms)
+        let slideInterval = setInterval(nextSlide, 5000);
+
+        // Não pausar autoplay ao clicar nos botões
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                nextSlide();
+            });
+        }
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                prevSlide();
+            });
+        }
+
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        if (carousel) {
+            carousel.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            carousel.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+        }
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                nextSlide();
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                prevSlide();
+            }
+        }
+
+        // Initialize first slide
+        goToSlide(0);
+    }
 
     // Active navigation link highlighting
     const currentLocation = window.location.pathname;

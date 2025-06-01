@@ -195,6 +195,9 @@
                 mobileMenu.classList.toggle('active'); // Optional: add active class to button for styling
             });
 
+            // Code specific to dias-coleta.html
+            if (document.getElementById('neighborhood-input')) {
+
             // Sample collection data (replace with real data)
             const collectionData = [
                 { neighborhood: "Centro", day: "Segunda-feira e Quinta-feira" },
@@ -374,6 +377,7 @@
                     viewAllButton.style.display = 'block'; // Show view all button
                 }
             });
+            }
         });
     </script>
 </body>

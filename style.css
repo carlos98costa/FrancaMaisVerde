@@ -74,6 +74,11 @@ nav ul {
     gap: 15px;
 }
 
+/* Ensure nav-list is flex on larger screens */
+nav ul.nav-list {
+    display: flex; /* Default display for larger screens */
+}
+
 nav ul li a {
     color: var(--header-footer-text);
     text-decoration: none;
@@ -151,31 +156,38 @@ nav ul li a.active {
 
 /* Mobile Menu Styles */
 @media (max-width: 768px) {
+    header {
+        padding: 1rem 20px; /* Add some padding to the header on smaller screens */
+    }
     .mobile-menu-button {
         display: block;
     }
 
-    .nav-menu {
-        display: none;
-        position: fixed;
-        top: 0;
+    /* Hide the regular nav-list by default on small screens */
+    nav ul.nav-list {
+        display: none; /* Hide the list */
+        flex-direction: column; /* Stack items vertically */
+        width: 100%; /* Take full width */
+        text-align: center; /* Center text */
+        position: absolute; /* Position absolutely */
+        top: 100%; /* Position below the header */
         left: 0;
-        right: 0;
-        background-color: var(--header-footer-bg);
-        padding: 60px 20px 20px;
-        box-shadow: var(--shadow-medium);
-        z-index: 1000;
+        background-color: var(--header-footer-bg); /* Match header background */
+        box-shadow: var(--shadow-medium); /* Add shadow */
+        padding: 20px 0; /* Add padding */
+        z-index: 999; /* Ensure it's below the menu toggle */
     }
 
-    .nav-menu.active {
-        display: block;
+    /* Styles for when the nav-list is active (shown) */
+    nav ul.nav-list.active {
+        display: flex; /* Show the list as a flex column */
     }
 
-    .nav-menu li {
+    nav ul.nav-list li {
         margin: 10px 0;
     }
 
-    .nav-menu li a {
+    nav ul.nav-list li a {
         padding: 15px;
         text-align: center;
         border-radius: 8px;
