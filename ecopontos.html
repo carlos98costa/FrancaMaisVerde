@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guia completo de reciclagem em Franca-SP, com informações sobre separação de lixo, ecopontos e dicas de sustentabilidade.">
+    <meta name="keywords" content="reciclagem, Franca-SP, ecopontos, sustentabilidade, descarte de resíduos, pontos de coleta, meio ambiente">
+    <meta name="author" content="Guia de Reciclagem para Franca-SP">
+    <meta name="theme-color" content="#4CAF50">
+    <title>Ecopontos em Franca - Guia de Reciclagem Franca-SP</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="https://via.placeholder.com/32?text=♻️">
+    <style>
+    h1, h2 {
+      text-align: center;
+    }
+    .materiais-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+    .material-item {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+      padding: 20px 18px 16px 18px;
+      text-align: center;
+      border-left: 6px solid #2ecc71;
+      transition: box-shadow 0.2s;
+    }
+    .material-item:hover {
+      box-shadow: 0 6px 18px rgba(44, 62, 80, 0.13);
+    }
+    .material-item h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: #3498db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .material-item ul {
+      text-align: left;
+      margin: 0 0 10px 0;
+      padding-left: 18px;
+    }
+    .material-note {
+      font-size: 0.95em;
+      color: #888;
+      margin-top: 6px;
+    }
+    .tips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      margin: 30px 0 20px 0;
+    }
+    .tip-card {
+      background: #f1f8e9;
+      border-left: 4px solid #f1c40f;
+      border-radius: 8px;
+      padding: 16px 18px;
+      min-width: 220px;
+      max-width: 320px;
+      box-shadow: 0 1px 4px rgba(44, 62, 80, 0.07);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .tip-card i {
+      color: #f1c40f;
+      font-size: 1.3em;
+    }
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      margin: 32px 0 0 0;
+    }
+    .contact-card {
+      background: #e3f2fd;
+      border-left: 4px solid #3498db;
+      border-radius: 8px;
+      padding: 18px 22px;
+      min-width: 220px;
+      max-width: 320px;
+      box-shadow: 0 1px 4px rgba(44, 62, 80, 0.07);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .contact-card i {
+      color: #3498db;
+      font-size: 1.2em;
+    }
+    @media (max-width: 700px) {
+      .materiais-grid, .tips-container, .contact-container {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .intro-ecoponto { padding: 12px 8px; }
+    }
+    </style>
+</head>
+<body>    
+    <header role="banner">
+        <div class="header-content">
+            <nav role="navigation" aria-label="Menu principal">
+                <button class="mobile-menu-button" aria-label="Abrir menu" aria-expanded="false">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="importancia.html"><i class="fas fa-leaf"></i> A Importância da Reciclagem</a></li>
+                    <li><a href="separar.html"><i class="fas fa-recycle"></i> Como Separar o Lixo</a></li>
+                    <li><a href="descarte-especial.html"><i class="fas fa-trash-alt"></i> Descarte Especial</a></li>
+                    <li><a href="ecopontos.html" class="active"><i class="fas fa-map-marker-alt"></i> Ecopontos em Franca</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <section id="ecopontos-intro" aria-labelledby="ecopontos-intro-heading">
+            <h2 id="ecopontos-intro-heading">O que são Ecopontos?</h2>
+            <p>Os Ecopontos são locais estratégicos em Franca-SP destinados ao recebimento e armazenamento temporário de resíduos que não são coletados pelo serviço comum de lixo. Estes pontos são fundamentais para a gestão ambiental da cidade, contribuindo para a redução de resíduos em aterros sanitários e promovendo a reciclagem.</p>
+            
+            <div class="info-box">
+                <h3><i class="fas fa-info-circle"></i> Por que usar Ecopontos?</h3>
+                <ul>
+                    <li>Contribui para a preservação do meio ambiente</li>
+                    <li>Evita o descarte irregular de resíduos</li>
+                    <li>Promove a reciclagem e reutilização de materiais</li>
+                    <li>Reduz o volume de lixo em aterros sanitários</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="materiais-aceitos" aria-labelledby="materiais-aceitos-heading">
+            <h2 id="materiais-aceitos-heading">Materiais Aceitos nos Ecopontos</h2>
+            <div class="materiais-grid">
+                <div class="material-item">
+                    <h3><i class="fas fa-hard-hat"></i> Resíduos de Construção</h3>
+                    <ul>
+                        <li>Entulho</li>
+                        <li>Tijolos</li>
+                        <li>Telhas</li>
+                        <li>Materiais de demolição</li>
+                    </ul>
+                    <p class="material-note">Limite de 1m³ por pessoa/dia</p>
+                </div>
+                <div class="material-item">
+                    <h3><i class="fas fa-tree"></i> Resíduos Verdes</h3>
+                    <ul>
+                        <li>Poda de árvores</li>
+                        <li>Grama</li>
+                        <li>Folhas</li>
+                        <li>Galhos</li>
+                    </ul>
+                    <p class="material-note">Galhos devem ter até 1,5m de comprimento</p>
+                </div>
+                <div class="material-item">
+                    <h3><i class="fas fa-laptop"></i> Resíduos Eletrônicos</h3>
+                    <ul>
+                        <li>Computadores</li>
+                        <li>Celulares</li>
+                        <li>Eletrodomésticos</li>
+                        <li>Pilhas e baterias</li>
+                    </ul>
+                    <p class="material-note">Retire dados pessoais antes do descarte</p>
+                </div>
+                <div class="material-item">
+                    <h3><i class="fas fa-box"></i> Outros Materiais</h3>
+                    <ul>
+                        <li>Móveis velhos</li>
+                        <li>Óleo de cozinha usado</li>
+                        <li>Pneus</li>
+                        <li>Lâmpadas</li>
+                    </ul>
+                    <p class="material-note">Óleo deve ser entregue em garrafa PET</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dicas-importantes" aria-labelledby="dicas-heading">
+            <h2 id="dicas-heading">Dicas Importantes</h2>
+            <div class="tips-container">
+                <div class="tip-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>Transporte</h3>
+                    <p>Utilize veículos adequados para o transporte dos resíduos. Para grandes volumes, considere alugar um caminhão ou contratar um serviço de transporte.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Horário</h3>
+                    <p>Evite horários de pico (meio-dia e final da tarde) para evitar filas. Chegue com antecedência para garantir tempo hábil para o descarte.</p>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-box-open"></i>
+                    <h3>Embalagem</h3>
+                    <p>Separe os materiais por tipo e embale adequadamente. Resíduos soltos podem causar acidentes e dificultar o processamento.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="ecopontos-map" aria-labelledby="ecopontos-map-heading">
+            <h2 id="ecopontos-map-heading">Ecopontos em Franca-SP</h2>
+            <p>Utilize o mapa interativo abaixo para encontrar o Ecoponto mais próximo de você. Clique sobre os marcadores para obter informações detalhadas sobre cada local, incluindo endereço, horário de funcionamento e materiais aceitos.</p>
+            
+            <div class="map-container">
+                <div id="map" role="region" aria-label="Mapa interativo com ecopontos em Franca"></div>
+                <div class="map-legend">
+                    <h3>Legenda</h3>
+                    <ul>
+                        <li><span class="legend-icon construction"></span> Resíduos de Construção</li>
+                        <li><span class="legend-icon green"></span> Resíduos Verdes</li>
+                        <li><span class="legend-icon electronic"></span> Eletrônicos</li>
+                        <li><span class="legend-icon other"></span> Outros Materiais</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="map-controls">
+                <button id="showLocations" class="primary-button" aria-label="Mostrar ecopontos no mapa">
+                    <i class="fas fa-map-marked-alt"></i> Mostrar Ecopontos no Mapa
+                </button>
+                <button id="resetMap" class="secondary-button" aria-label="Redefinir mapa" style="display: none;">
+                    <i class="fas fa-undo"></i> Redefinir Mapa
+                </button>
+                <button id="locateMe" class="secondary-button" aria-label="Localizar minha posição">
+                    <i class="fas fa-location-arrow"></i> Localizar-me
+                </button>
+            </div>
+
+            <p class="map-note"><i class="fas fa-info-circle"></i> Observação: A localização dos Ecopontos pode ser alterada ou novos pontos podem ser criados pela prefeitura. Sempre verifique informações atualizadas junto à Prefeitura Municipal de Franca ou órgãos ambientais locais.</p>
+        </section>
+
+        <section id="horarios-funcionamento" aria-labelledby="horarios-heading">
+            <h2 id="horarios-heading">Horários de Funcionamento</h2>
+            <div class="schedule-container">
+                <div class="schedule-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Dias Úteis</h3>
+                    <p>Segunda a Sexta: 8h às 17h</p>
+                </div>
+                <div class="schedule-card">
+                    <h3><i class="fas fa-calendar-day"></i> Sábados</h3>
+                    <p>8h às 12h</p>
+                </div>
+                <div class="schedule-card">
+                    <h3><i class="fas fa-calendar-times"></i> Domingos e Feriados</h3>
+                    <p>Fechado</p>
+                </div>
+            </div>
+            <p class="schedule-note"><i class="fas fa-exclamation-triangle"></i> Recomendamos verificar o horário específico de cada unidade, pois pode haver variações.</p>
+        </section>
+
+        <section id="contato" aria-labelledby="contato-heading">
+            <h2 id="contato-heading">Contato e Informações</h2>
+            <div class="contact-container">
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>Telefone</h3>
+                    <p>(16) 3711-9300</p>
+                    <p class="contact-note">Segunda a Sexta, 8h às 17h</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>meioambiente@franca.sp.gov.br</p>
+                    <p class="contact-note">Resposta em até 48h úteis</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Endereço</h3>
+                    <p>Rua Coronel Joaquim Antônio, 1500 - Centro</p>
+                    <p class="contact-note">Franca - SP</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Guia de Reciclagem para Franca-SP. Todos os direitos reservados.</p>
+            <p>Desenvolvido com <i class="fas fa-heart"></i> para promover a sustentabilidade em nossa cidade.</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" aria-label="Voltar ao topo"><i class="fas fa-arrow-up"></i></button>
+
+    <div id="ecopointModal" class="modal" role="dialog" aria-labelledby="modalEcopointName">
+        <div class="modal-content">
+            <span class="close-button" aria-label="Fechar modal">&times;</span>
+            <h3 id="modalEcopointName"></h3>
+            <div class="modal-info">
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Endereço:</strong> <span id="modalEcopointAddress"></span></p>
+                <p><i class="fas fa-clock"></i> <strong>Horário de Funcionamento:</strong> <span id="modalEcopointHours"></span></p>
+                <p id="modalEcopointDescription"></p>
+                <h4><i class="fas fa-list"></i> Materiais Aceitos:</h4>
+                <ul id="modalEcopointMaterials"></ul>
+            </div>
+            <div class="modal-actions">
+                <button class="primary-button" id="getDirections">
+                    <i class="fas fa-directions"></i> Obter Direções
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
