@@ -403,33 +403,6 @@ document.addEventListener('DOMContentLoaded', () => {
         img.style.transition = 'opacity 0.3s ease';
     });
 
-    const locateMeButton = document.getElementById('locateMe');
-    if (locateMeButton) {
-        locateMeButton.addEventListener('click', () => {
-            if (!navigator.geolocation) {
-                alert('Geolocalização não suportada pelo seu navegador.');
-                return;
-            }
-            locateMeButton.disabled = true;
-            locateMeButton.textContent = 'Localizando...';
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    map.setView([latitude, longitude], 15);
-                    L.marker([latitude, longitude], { icon: customIcon }).addTo(map)
-                        .bindPopup('Você está aqui!').openPopup();
-                    locateMeButton.disabled = false;
-                    locateMeButton.textContent = 'Localizar-me';
-                },
-                (error) => {
-                    alert('Não foi possível obter sua localização.');
-                    locateMeButton.disabled = false;
-                    locateMeButton.textContent = 'Localizar-me';
-                }
-            );
-        });
-    }
-
     // Collection data by neighborhood
     const collectionData = [
         { neighborhood: "BELVEDERE BANDEIRANTE", day: "QUARTA-FEIRA - DIA" },
