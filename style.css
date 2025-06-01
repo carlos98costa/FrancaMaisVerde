@@ -113,45 +113,24 @@ nav ul li a.active {
     z-index: 1001;
 }
 
-.hamburger {
+.bar {
     display: block;
     width: 24px;
     height: 2px;
     background-color: var(--header-footer-text);
-    position: relative;
+    margin: 4px auto; /* Space between bars */
     transition: all 0.3s ease;
 }
 
-.hamburger::before,
-.hamburger::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 2px;
-    background-color: var(--header-footer-text);
-    transition: all 0.3s ease;
+/* Styles for transforming the icon when menu is active */
+.menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg); /* Adjust translateY based on margin */
 }
-
-.hamburger::before {
-    top: -8px;
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0; /* Hide the middle bar */
 }
-
-.hamburger::after {
-    bottom: -8px;
-}
-
-.menu-toggle.active .hamburger {
-    background-color: transparent;
-}
-
-.menu-toggle.active .hamburger::before {
-    transform: rotate(45deg);
-    top: 0;
-}
-
-.menu-toggle.active .hamburger::after {
-    transform: rotate(-45deg);
-    bottom: 0;
+.menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg); /* Adjust translateY based on margin */
 }
 
 /* Mobile Menu Styles */
