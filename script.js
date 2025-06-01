@@ -110,9 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize map
     const mapContainer = document.getElementById('map');
+    let map; // Declare map variable in a scope accessible to geolocation callbacks
     if (mapContainer) {
         mapContainer.classList.add('loading');
-        const map = L.map('map', {
+        map = L.map('map', {
             zoomControl: true,
             scrollWheelZoom: false // Disable scroll wheel zoom for better UX
         }).setView([-20.5407, -47.4005], 12);
