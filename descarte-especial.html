@@ -77,59 +77,63 @@
     </style>
 </head>
 <body>
-    <header role="banner">
-        <div class="header-content">
-            <nav role="navigation" aria-label="Menu principal">
-                <button class="mobile-menu-button" aria-label="Abrir menu" aria-expanded="false">
-                    <span class="hamburger"></span>
-                </button>
-                <ul class="nav-menu">
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="importancia.html"><i class="fas fa-leaf"></i> A Importância da Reciclagem</a></li>
-                    <li><a href="separar.html"><i class="fas fa-recycle"></i> Como Separar o Lixo</a></li>
-                    <li><a href="descarte-especial.html" class="active"><i class="fas fa-trash-alt"></i> Descarte Especial</a></li>
-                    <li><a href="ecopontos.html"><i class="fas fa-map-marker-alt"></i> Ecopontos em Franca</a></li>
-                </ul>
-            </nav>
+    <header>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
         </div>
+        <nav>
+            <ul class="nav-list" id="nav-list">
+                <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="importancia.html"><i class="fas fa-leaf"></i> Importância</a></li>
+                <li><a href="separar.html"><i class="fas fa-recycle"></i> Como Separar</a></li>
+                <li><a href="descarte-especial.html" class="active"><i class="fas fa-trash-alt"></i> Descarte Especial</a></li>
+                <li><a href="ecopontos.html"><i class="fas fa-map-marker-alt"></i> Ecopontos</a></li>
+                <li><a href="dias-coleta.html"><i class="fas fa-calendar-alt"></i> Dias de Coleta</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main role="main">
-        <div class="intro-especial">
-          <strong>Descarte Especial:</strong> Alguns resíduos exigem cuidados extras para evitar danos ao meio ambiente e à saúde pública. Veja como descartar corretamente eletrônicos, óleo de cozinha, pilhas, baterias e medicamentos em Franca.
-        </div>
-        <div class="special-grid">
-          <div class="special-card">
-            <h3><i class="fas fa-laptop"></i> Lixo Eletrônico (E-lixo)</h3>
-            <p>Computadores, celulares, TVs, impressoras, pilhas, baterias e outros eletrônicos não devem ser descartados no lixo comum.</p>
-            <p><strong>Onde descartar:</strong> <a href="ecopontos.html#ecopontos-map">Ecopontos</a> de Franca e grandes redes de eletrônicos. Fique atento a campanhas da prefeitura.</p>
-          </div>
-          <div class="special-card">
-            <h3><i class="fas fa-oil-can"></i> Óleo de Cozinha Usado</h3>
-            <p>Não descarte óleo na pia ou ralo! Ele polui a água e causa entupimentos.</p>
-            <p><strong>Onde descartar:</strong> <a href="ecopontos.html#ecopontos-map">Ecopontos</a> de Franca. Armazene o óleo frio em garrafas PET e leve até um ecoponto.</p>
-          </div>
-          <div class="special-card">
-            <h3><i class="fas fa-battery-full"></i> Pilhas e Baterias</h3>
-            <p>Contêm metais pesados prejudiciais ao meio ambiente e à saúde.</p>
-            <p><strong>Onde descartar:</strong> <a href="ecopontos.html#ecopontos-map">Ecopontos</a>, supermercados, lojas de eletrônicos e algumas agências bancárias.</p>
-          </div>
-          <div class="special-card">
-            <h3><i class="fas fa-prescription-bottle-alt"></i> Medicamentos</h3>
-            <p>Nunca descarte medicamentos no lixo comum, privada ou pia.</p>
-            <p><strong>Onde descartar:</strong> Leve medicamentos vencidos ou não utilizados para farmácias com coletores específicos.</p>
-          </div>
-        </div>
-        <div class="tips-especial">
-          <strong>Dicas rápidas:</strong>
-          <ul>
-            <li>Remova pilhas e baterias de aparelhos antes do descarte.</li>
-            <li>Embrulhe objetos cortantes ou perfurantes antes de descartar.</li>
-            <li>Não misture resíduos especiais com lixo comum ou reciclável.</li>
-            <li>Procure sempre os pontos de coleta corretos para cada tipo de resíduo.</li>
-          </ul>
-        </div>
-        <p>Em caso de dúvida sobre outros tipos de resíduos, entre em contato com a Secretaria de Meio Ambiente de Franca ou os responsáveis pelos <a href="ecopontos.html#ecopontos-map">Ecopontos</a>.</p>
+        <section id="descarte-especial-section" aria-labelledby="descarte-especial-heading">
+            <h2 id="descarte-especial-heading">Descarte de Resíduos Especiais em Franca</h2>
+            <div class="intro-especial">
+              <strong>Descarte Especial:</strong> Alguns resíduos exigem cuidados extras para evitar danos ao meio ambiente e à saúde pública. Veja como descartar corretamente eletrônicos, óleo de cozinha, pilhas, baterias e medicamentos em Franca.
+            </div>
+            <div class="special-grid">
+              <div class="special-card">
+                <h3><i class="fas fa-laptop"></i> Lixo Eletrônico (E-lixo)</h3>
+                <p>Computadores, celulares, TVs, impressoras, pilhas, baterias e outros eletrônicos não devem ser descartados no lixo comum.</p>
+                <p><strong>Onde descartar:</strong> <a href="ecopontos.html#ecopontos-map">Ecopontos</a> de Franca e grandes redes de eletrônicos. Fique atento a campanhas da prefeitura.</p>
+              </div>
+              <div class="special-card">
+                <h3><i class="fas fa-oil-can"></i> Óleo de Cozinha Usado</h3>
+                <p>Não descarte óleo na pia ou ralo! Ele polui a água e causa entupimentos.</p>
+                <p><strong>Onde descartar:</strong> <a href="ecopontos.html#ecopontos-map">Ecopontos</a> de Franca. Armazene o óleo frio em garrafas PET e leve até um ecoponto.</p>
+              </div>
+              <div class="special-card">
+                <h3><i class="fas fa-battery-full"></i> Pilhas e Baterias</h3>
+                <p>Contêm metais pesados prejudiciais ao meio ambiente e à saúde.</p>
+                <p><strong>Onde descartar:</strong> <a href="ecopontos.html#ecopontos-map">Ecopontos</a>, supermercados, lojas de eletrônicos e algumas agências bancárias.</p>
+              </div>
+              <div class="special-card">
+                <h3><i class="fas fa-prescription-bottle-alt"></i> Medicamentos</h3>
+                <p>Nunca descarte medicamentos no lixo comum, privada ou pia.</p>
+                <p><strong>Onde descartar:</strong> Leve medicamentos vencidos ou não utilizados para farmácias com coletores específicos.</p>
+              </div>
+            </div>
+            <div class="tips-especial">
+              <strong>Dicas rápidas:</strong>
+              <ul>
+                <li>Remova pilhas e baterias de aparelhos antes do descarte.</li>
+                <li>Embrulhe objetos cortantes ou perfurantes antes de descartar.</li>
+                <li>Não misture resíduos especiais com lixo comum ou reciclável.</li>
+                <li>Procure sempre os pontos de coleta corretos para cada tipo de resíduo.</li>
+              </ul>
+            </div>
+            <p>Em caso de dúvida sobre outros tipos de resíduos, entre em contato com a Secretaria de Meio Ambiente de Franca ou os responsáveis pelos <a href="ecopontos.html#ecopontos-map">Ecopontos</a>.</p>
+        </section>
     </main>
 
     <footer role="contentinfo">

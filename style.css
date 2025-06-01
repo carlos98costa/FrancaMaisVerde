@@ -637,21 +637,22 @@ footer p {
 
 /* Landing page styles */
 .intro-section {
-    background-color: var(--background-color);
+    background-color: var(--background-light);
     padding: 4rem 0;
     text-align: center;
+    margin-bottom: 40px;
+}
+
+.intro-section h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0;
 }
 
 .intro-section .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
-}
-
-.intro-section h1 {
-    color: var(--primary-color);
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
 }
 
 .intro-section p {

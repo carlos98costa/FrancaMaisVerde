@@ -1,424 +1,194 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Mobile menu functionality
-    const mobileMenuButton = document.querySelector('.mobile-menu-button');
-    const navMenu = document.querySelector('.nav-menu');
-
-    if (mobileMenuButton && navMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-            navMenu.classList.toggle('active');
-            mobileMenuButton.classList.toggle('active');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (event) => {
-            if (!event.target.closest('.nav-menu') && !event.target.closest('.mobile-menu-button')) {
-                navMenu.classList.remove('active');
-                mobileMenuButton.classList.remove('active');
-                mobileMenuButton.setAttribute('aria-expanded', 'false');
-            }
-        });
-
-        // Close menu when window is resized to desktop size
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                navMenu.classList.remove('active');
-                mobileMenuButton.classList.remove('active');
-                mobileMenuButton.setAttribute('aria-expanded', 'false');
-            }
-        });
-    }
-
-    // Data for ecopoints
-    const ecopontos = [
-        {
-            id: 1,
-            name: 'Ecoponto City Petrópolis',
-            lat: -20.4998,
-            lng: -47.4107,
-            address: 'Avenida São Pedro, 1200 - City Petrópolis',
-            hours: 'Seg a Sáb: 7h às 19h, Dom: 8h às 14h',
-            description: 'Localizado na região norte, o Ecoponto City Petrópolis é um ponto crucial para o descarte adequado de resíduos volumosos e da construção civil. Essencial para manter a limpeza e organização do bairro.',
-            materialsAccepted: [
-                'Entulho de Construção Civil (pequenas quantidades até 1m³)',
-                'Madeira, galhos e poda de árvores',
-                'Móveis e Eletrodomésticos (sofás, armários, geladeiras)',
-                'Pneus (limite de 4 por CPF)',
-                'Óleo de Cozinha Usado (em garrafas PET)',
-                'Lixo Eletrônico (computadores, TVs, celulares, etc.)',
-                'Pilhas e Baterias',
-                'Recicláveis (Plástico, Papel, Metal, Vidro)'
-            ]
-        },
-        {
-            id: 2,
-            name: 'Ecoponto Jardim Portinari',
-            lat: -20.5186,
-            lng: -47.4042,
-            address: 'Avenida Hotto Paiva, 1341 - Jardim Portinari',
-            hours: 'Seg a Sáb: 7h às 19h, Dom: 8h às 14h',
-            description: 'Atendendo a zona leste de Franca, o Ecoponto Portinari desempenha um papel vital no manejo de resíduos que não podem ser descartados na coleta comum, promovendo a sustentabilidade local.',
-            materialsAccepted: [
-                'Entulho de Construção Civil (pequenas quantidades)',
-                'Restos de madeira e poda de jardim',
-                'Colchões e estofados',
-                'Vidro e plásticos em geral',
-                'Metais ferrosos e não-ferrosos',
-                'Óleo de cozinha',
-                'Pilhas, baterias e lâmpadas fluorescentes',
-                'Equipamentos eletrônicos em desuso'
-            ]
-        },
-        {
-            id: 3,
-            name: 'Ecoponto Parque das Esmeraldas',
-            lat: -20.5750,
-            lng: -47.4040,
-            address: 'Rua Geraldino Augusto Machado, 411 - Parque das Esmeraldas',
-            hours: 'Seg a Sáb: 7h às 19h, Dom: 8h às 14h',
-            description: 'Localizado na parte sul da cidade, o Ecoponto Esmeraldas é essencial para a gestão de resíduos volumosos e especiais, contribuindo para a limpeza e o bem-estar da comunidade.',
-            materialsAccepted: [
-                'Móveis, colchões e objetos grandes',
-                'Pneus (sem limite de quantidade por CPF, mas com pré-agendamento para grandes volumes)',
-                'Lixo eletrônico (diversos tipos de aparelhos)',
-                'Óleo de cozinha usado (garrafas plásticas)',
-                'Vidro, papel, plástico e metal (para reciclagem)',
-                'Madeira e entulho de pequenas reformas',
-                'Pilhas, baterias de celular e lâmpadas'
-            ]
-        },
-        {
-            id: 4,
-            name: 'Ecoponto Jardim Luiza (Jardim Luiza 2)',
-            lat: -20.5693,
-            lng: -47.3687,
-            address: 'Avenida Ida Zero Zaninelo, 2501 - Jardim Luiza',
-            hours: 'Seg a Sáb: 7h às 19h, Dom: 8h às 14h',
-            description: 'Situado na região sudeste, o Ecoponto Jardim Luiza é um ponto estratégico para o descarte ambientalmente correto de resíduos diversos, apoiando a coleta seletiva e o descarte de materiais específicos.',
-            materialsAccepted: [
-                'Resíduos de construção civil (até 1m³)',
-                'Resíduos verdes (poda, capina)',
-                'Eletrodomésticos e eletrônicos',
-                'Pneus e outros objetos volumosos',
-                'Óleo de fritura usado',
-                'Pilhas, baterias e lâmpadas',
-                'Recicláveis (papel, plástico, metal, vidro)'
-            ]
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franca+Verde - Dias de Coleta</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
         }
-    ];
-
-    // Initialize map
-    const mapContainer = document.getElementById('map');
-    if (mapContainer) {
-        mapContainer.classList.add('loading');
-        const map = L.map('map', {
-            zoomControl: true,
-            scrollWheelZoom: false // Disable scroll wheel zoom for better UX
-        }).setView([-20.5407, -47.4005], 12);
-
-        // Add OpenStreetMap tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 19
-        }).addTo(map).on('load', () => {
-            mapContainer.classList.remove('loading');
-        });
-
-        // Custom icon for markers
-        const customIcon = L.icon({
-            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-            shadowSize: [41, 41],
-            shadowAnchor: [12, 41]
-        });
-
-        // Map controls
-        const showLocationsButton = document.getElementById('showLocations');
-        const resetMapButton = document.getElementById('resetMap');
-        let markersLayer = L.layerGroup().addTo(map);
-
-        function showEcopoints() {
-            try {
-                markersLayer.clearLayers();
-                ecopontos.forEach(ecoponto => {
-                    const marker = L.marker([ecoponto.lat, ecoponto.lng], { 
-                        icon: customIcon,
-                        keyboard: true // Enable keyboard navigation
-                    }).addTo(markersLayer);
-                    marker.bindPopup(
-                        `<b>${ecoponto.name}</b><br>` +
-                        `${ecoponto.address}<br>` +
-                        `Horário: ${ecoponto.hours}<br>` +
-                        `<button class="more-details-button" onclick="window.showEcopointDetails(${ecoponto.id})" aria-label="Ver mais detalhes sobre ${ecoponto.name}">Mais Detalhes</button>`,
-                        { closeButton: true }
-                    );
-                });
-
-                if (ecopontos.length > 0) {
-                    const latLngs = ecopontos.map(eco => [eco.lat, eco.lng]);
-                    map.fitBounds(latLngs, { padding: [50, 50] });
-                }
-
-                showLocationsButton.disabled = true;
-                showLocationsButton.textContent = 'Ecopontos no Mapa!';
-                showLocationsButton.style.cursor = 'default';
-                showLocationsButton.style.backgroundColor = '#6c757d';
-                showLocationsButton.style.transform = 'none';
-                showLocationsButton.style.boxShadow = 'none';
-                resetMapButton.style.display = 'block';
-            } catch (error) {
-                console.error('Erro ao mostrar ecopontos:', error);
-                alert('Ocorreu um erro ao carregar os ecopontos. Tente novamente.');
-            }
+        .search-input-wrapper {
+            position: relative;
+            display: flex;
+            gap: 10px;
         }
-
-        function resetMap() {
-            markersLayer.clearLayers();
-            map.setView([-20.5407, -47.4005], 12);
-            showLocationsButton.disabled = false;
-            showLocationsButton.textContent = 'Mostrar Ecopontos no Mapa';
-            showLocationsButton.style.cursor = 'pointer';
-            showLocationsButton.style.backgroundColor = 'var(--secondary-color)';
-            showLocationsButton.style.transform = '';
-            showLocationsButton.style.boxShadow = '0 4px 8px rgba(0, 123, 255, 0.2)';
-            resetMapButton.style.display = 'none';
+        #neighborhood-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
         }
-
-        if (showLocationsButton && resetMapButton) {
-            showLocationsButton.addEventListener('click', showEcopoints);
-            resetMapButton.addEventListener('click', resetMap);
+        #neighborhood-input:focus {
+            border-color: #4CAF50;
+            outline: none;
         }
-    }
-
-    // Back to top button
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    let scrollTimeout;
-
-    window.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            if (window.scrollY > 400) {
-                backToTopBtn.style.display = 'block';
-                setTimeout(() => backToTopBtn.style.opacity = '1', 50);
-            } else {
-                backToTopBtn.style.opacity = '0';
-                setTimeout(() => backToTopBtn.style.display = 'none', 300);
-            }
-        }, 100);
-    });
-
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    // Modal functionality
-    const ecopointModal = document.getElementById('ecopointModal');
-    const closeButton = document.querySelector('.close-button');
-
-    if (closeButton && ecopointModal) {
-        function openModal() {
-            ecopointModal.style.display = 'flex';
-            setTimeout(() => ecopointModal.classList.add('show'), 10);
-            document.body.style.overflow = 'hidden';
-            ecopointModal.focus();
+        #search-button {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
-
-        function closeModal() {
-            ecopointModal.classList.remove('show');
-            setTimeout(() => {
-                ecopointModal.style.display = 'none';
-                document.body.style.overflow = '';
-            }, 300);
+        #search-button:hover {
+            background-color: #45a049;
         }
-
-        closeButton.addEventListener('click', closeModal);
-        window.addEventListener('click', (event) => {
-            if (event.target === ecopointModal) {
-                closeModal();
-            }
-        });
-
-        window.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && ecopointModal.classList.contains('show')) {
-                closeModal();
-            }
-        });
-
-        window.showEcopointDetails = (id) => {
-            const selectedEcopoint = ecopontos.find(eco => eco.id === id);
-            if (selectedEcopoint) {
-                document.getElementById('modalEcopointName').textContent = selectedEcopoint.name;
-                document.getElementById('modalEcopointAddress').textContent = selectedEcopoint.address;
-                document.getElementById('modalEcopointHours').textContent = selectedEcopoint.hours;
-                document.getElementById('modalEcopointDescription').textContent = selectedEcopoint.description;
-
-                const materialsList = document.getElementById('modalEcopointMaterials');
-                materialsList.innerHTML = '';
-                selectedEcopoint.materialsAccepted.forEach(material => {
-                    const li = document.createElement('li');
-                    li.textContent = material;
-                    materialsList.appendChild(li);
-                });
-
-                openModal();
-            } else {
-                console.error('Ecoponto não encontrado:', id);
-                alert('Ecoponto não encontrado. Tente novamente.');
-            }
-        };
-    }
-
-    // Carousel functionality
-    const carousel = document.querySelector('.carousel');
-    const slides = document.querySelectorAll('.carousel-slide');
-    const prevButton = document.querySelector('.carousel-button.prev');
-    const nextButton = document.querySelector('.carousel-button.next');
-    const dotsContainer = document.querySelector('.carousel-dots');
-    
-    let currentSlide = 0;
-    const slideCount = slides.length;
-
-    // Create dots
-    slides.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        dotsContainer.appendChild(dot);
-    });
-
-    const dots = document.querySelectorAll('.dot');
-
-    function updateDots() {
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
-        });
-    }
-
-    function goToSlide(index) {
-        currentSlide = index;
-        const offset = -currentSlide * 100;
-        carousel.style.transform = `translateX(${offset}%)`;
-        updateDots();
-    }
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slideCount;
-        goToSlide(currentSlide);
-    }
-
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + slideCount) % slideCount;
-        goToSlide(currentSlide);
-    }
-
-    // Auto-advance slides every 5 seconds (5000ms)
-    let slideInterval = setInterval(nextSlide, 5000);
-
-    // Não pausar autoplay ao clicar nos botões
-    nextButton.addEventListener('click', () => {
-        nextSlide();
-    });
-    prevButton.addEventListener('click', () => {
-        prevSlide();
-    });
-
-    // Touch support for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    carousel.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-    
-    carousel.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        if (touchEndX < touchStartX - swipeThreshold) {
-            nextSlide();
-        } else if (touchEndX > touchStartX + swipeThreshold) {
-            prevSlide();
+        .suggestions-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-    }
-
-    // Initialize first slide
-    goToSlide(0);
-
-    // Active navigation link highlighting
-    const currentLocation = window.location.pathname;
-    const navLinks = document.querySelectorAll('nav ul li a');
-    
-    navLinks.forEach(link => {
-        const linkPath = link.getAttribute('href');
-        if (currentLocation.endsWith(linkPath)) {
-            link.classList.add('active');
+        .suggestion-item {
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
-    });
+        .suggestion-item:hover {
+            background-color: #f5f5f5;
+        }
+        .suggestion-item.active {
+            background-color: #e8f5e9;
+        }
+        .result-area {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            display: none;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .result-area.show {
+            display: block;
+        }
+        .result-area h3 {
+            margin-top: 0;
+            color: #343a40;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .result-area ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .result-area ul li {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            margin-bottom: 8px;
+            padding: 12px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .result-area ul li:last-child {
+            margin-bottom: 0;
+        }
+        .result-area ul li strong {
+            color: #007bff;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .secondary-button {
+            display: block;
+            width: fit-content;
+            margin: 20px auto 0 auto;
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .secondary-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <nav>
+            <ul class="nav-list" id="nav-list">
+                <li><a href="index.html"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="importancia.html"><i class="fas fa-leaf"></i> Importância</a></li>
+                <li><a href="separar.html"><i class="fas fa-recycle"></i> Como Separar</a></li>
+                <li><a href="descarte-especial.html"><i class="fas fa-trash-alt"></i> Descarte Especial</a></li>
+                <li><a href="ecopontos.html"><i class="fas fa-map-marker-alt"></i> Ecopontos</a></li>
+                <li><a href="dias-coleta.html" class="active"><i class="fas fa-calendar-alt"></i> Dias de Coleta</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
+    <main>
+        <section class="intro-section">
+            <div class="container">
+                <h2>Pesquisar Dias de Coleta por Bairro</h2>
+                <p>Encontre o dia e horário da coleta seletiva no seu bairro em Franca-SP.</p>
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <input type="text" id="neighborhood-input" placeholder="Digite o nome do seu bairro" autocomplete="off">
+                        <button id="search-button">Buscar</button>
+                    </div>
+                    <div class="suggestions-list" id="suggestions-list"></div>
+                </div>
+                <div id="result-area" class="result-area">
+                    <!-- Results will be displayed here -->
+                </div>
+                <div id="view-hide-buttons" style="text-align: center; margin-top: 20px;">
+                    <button id="view-all-button" class="secondary-button">Ver Todos os Bairros</button>
+                    <button id="hide-all-button" class="secondary-button" style="display: none;">Esconder Lista</button>
+                </div>
+                <div id="all-neighborhoods-list" class="result-area">
+                    <!-- All neighborhoods will be listed here -->
+                </div>
+            </div>
+        </section>
+    </main>
 
-    // Add loading animation for images
-    const images = document.querySelectorAll('img');
-    images.forEach(img => {
-        img.addEventListener('load', function() {
-            this.style.opacity = '1';
-        });
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.3s ease';
-    });
+    <footer>
+        <p>&copy; 2025 Guia de Reciclagem para Franca-SP. Todos os direitos reservados.</p>
+        <p>Desenvolvido com o compromisso de promover a sustentabilidade em nossa cidade.</p>
+    </footer>
 
-    const locateMeButton = document.getElementById('locateMe');
-    if (locateMeButton) {
-        locateMeButton.addEventListener('click', () => {
-            if (!navigator.geolocation) {
-                alert('Geolocalização não suportada pelo seu navegador.');
-                return;
-            }
-            locateMeButton.disabled = true;
-            locateMeButton.textContent = 'Localizando...';
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    map.setView([latitude, longitude], 15);
-                    L.marker([latitude, longitude], { icon: customIcon }).addTo(map)
-                        .bindPopup('Você está aqui!').openPopup();
-                    locateMeButton.disabled = false;
-                    locateMeButton.textContent = 'Localizar-me';
-                },
-                (error) => {
-                    alert('Não foi possível obter sua localização.');
-                    locateMeButton.disabled = false;
-                    locateMeButton.textContent = 'Localizar-me';
-                }
-            );
-        });
-    }
-
-    // Collection data by neighborhood
-    const collectionData = [
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sample collection data (replace with real data)
+            const collectionData = [
         { neighborhood: "BELVEDERE BANDEIRANTE", day: "QUARTA-FEIRA - DIA" },
         { neighborhood: "CABCEIRA DAS CANDEIAS", day: "QUINTA-FEIRA - DIA" },
         { neighborhood: "CENTRO (VOLUNTARIOS DA FRANCA SENTIDO CHAMPAGNAT)", day: "TER/ QUI/ SAB - NOITE" },
@@ -739,29 +509,174 @@ document.addEventListener('DOMContentLoaded', () => {
         { neighborhood: "VILLAGIO MUNDO NOVO", day: "TERÇA-FEIRA -  DIA" },
     ];
 
-    // Collection day search functionality
-    const neighborhoodInput = document.getElementById('neighborhood-input');
-    const searchButton = document.getElementById('search-button');
-    const resultArea = document.getElementById('result-area');
+            const neighborhoodInput = document.getElementById('neighborhood-input');
+            const searchButton = document.getElementById('search-button');
+            const resultArea = document.getElementById('result-area');
+            const suggestionsList = document.getElementById('suggestions-list');
+            const viewAllButton = document.getElementById('view-all-button');
+            const allNeighborhoodsListDiv = document.getElementById('all-neighborhoods-list');
+            const hideAllButton = document.getElementById('hide-all-button');
+            let currentFocus = -1;
 
-    if (neighborhoodInput && searchButton && resultArea) {
-        searchButton.addEventListener('click', () => {
-            const searchTerm = neighborhoodInput.value.trim().toUpperCase();
-            const result = collectionData.find(item => item.neighborhood.toUpperCase() === searchTerm);
+            // Função para filtrar sugestões
+            function filterSuggestions(input) {
+                const value = input.value.toUpperCase();
+                if (value.length < 2) {
+                    suggestionsList.style.display = 'none';
+                    return;
+                }
 
-            if (result) {
-                resultArea.innerHTML = `<p>O dia de coleta no bairro <strong>${result.neighborhood}</strong> é: <strong>${result.day}</strong></p>`;
-            } else {
-                resultArea.innerHTML = '<p>Bairro não encontrado. Por favor, verifique o nome digitado.</p>';
+                const filteredNeighborhoods = collectionData.filter(item => 
+                    item.neighborhood.toUpperCase().includes(value)
+                ).slice(0, 5); // Limita a 5 sugestões
+
+                if (filteredNeighborhoods.length > 0) {
+                    suggestionsList.innerHTML = filteredNeighborhoods.map((item, index) => {
+                        const neighborhood = item.neighborhood;
+                        const highlightedText = neighborhood.replace(
+                            new RegExp(value, 'gi'),
+                            match => `<span class="highlight">${match}</span>`
+                        );
+                        return `<div class="suggestion-item" data-index="${index}">${highlightedText}</div>`;
+                    }).join('');
+                    suggestionsList.style.display = 'block';
+                } else {
+                    suggestionsList.style.display = 'none';
+                }
             }
-        });
 
-        // Allow searching by pressing Enter in the input field
-        neighborhoodInput.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault(); // Prevent form submission if it were a form
-                searchButton.click();
+            // Event listeners para o input
+            neighborhoodInput.addEventListener('input', () => {
+                filterSuggestions(neighborhoodInput);
+                currentFocus = -1;
+                resultArea.classList.remove('show'); // Hide search results when typing
+                allNeighborhoodsListDiv.classList.remove('show'); // Hide all neighborhoods list when typing
+            });
+
+            neighborhoodInput.addEventListener('keydown', (e) => {
+                const items = suggestionsList.getElementsByClassName('suggestion-item');
+                
+                if (e.key === 'ArrowDown') {
+                    currentFocus++;
+                    addActive(items);
+                    e.preventDefault();
+                } else if (e.key === 'ArrowUp') {
+                    currentFocus--;
+                    addActive(items);
+                    e.preventDefault();
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (currentFocus > -1 && items[currentFocus]) {
+                        items[currentFocus].click();
+                    } else {
+                        searchButton.click();
+                    }
+                } else if (e.key === 'Escape') {
+                    suggestionsList.style.display = 'none';
+                }
+            });
+
+            function addActive(items) {
+                if (!items) return;
+                removeActive(items);
+                if (currentFocus >= items.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = items.length - 1;
+                items[currentFocus].classList.add('active');
             }
+
+            function removeActive(items) {
+                for (let i = 0; i < items.length; i++) {
+                    items[i].classList.remove('active');
+                }
+            }
+
+            // Event listener para clicar em uma sugestão
+            suggestionsList.addEventListener('click', (e) => {
+                const item = e.target.closest('.suggestion-item');
+                if (item) {
+                    const index = parseInt(item.dataset.index);
+                    const selectedNeighborhood = collectionData.filter(item => 
+                         item.neighborhood.toUpperCase().includes(neighborhoodInput.value.toUpperCase())
+                    )[index].neighborhood;
+                    neighborhoodInput.value = selectedNeighborhood;
+                    suggestionsList.style.display = 'none';
+                    searchButton.click();
+                }
+            });
+
+            // Fechar sugestões ao clicar fora
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-container')) {
+                    suggestionsList.style.display = 'none';
+                }
+            });
+
+            // Função de busca existente
+            searchButton.addEventListener('click', () => {
+                suggestionsList.style.display = 'none'; // Hide suggestions on search
+                allNeighborhoodsListDiv.classList.remove('show'); // Hide all neighborhoods list on search
+                hideAllButton.style.display = 'none'; // Hide hide button on search
+                viewAllButton.style.display = 'block'; // Show view all button on search
+                const searchTerm = neighborhoodInput.value.trim().toUpperCase();
+                const result = collectionData.find(item => item.neighborhood.toUpperCase() === searchTerm);
+
+                if (result) {
+                    resultArea.innerHTML = `
+                        <div class="result-content">
+                            <h3><i class="fas fa-calendar-check"></i> Dia de Coleta Encontrado</h3>
+                            <p>O dia de coleta no bairro <strong>${result.neighborhood}</strong> é:</p>
+                            <p class="collection-day"><strong>${result.day}</strong></p>
+                        </div>
+                    `;
+                    resultArea.classList.add('show');
+                } else {
+                    resultArea.innerHTML = `
+                        <div class="result-content">
+                            <h3><i class="fas fa-exclamation-circle"></i> Bairro não encontrado</h3>
+                            <p>Por favor, verifique o nome digitado e tente novamente.</p>
+                        </div>
+                    `;
+                    resultArea.classList.add('show');
+                }
+            });
+
+            // Função para exibir todos os bairros
+            viewAllButton.addEventListener('click', () => {
+                resultArea.classList.remove('show'); // Hide search results
+                suggestionsList.style.display = 'none'; // Hide suggestions
+                viewAllButton.style.display = 'none'; // Hide view all button
+                hideAllButton.style.display = 'block'; // Show hide button
+                
+                let allNeighborhoodsHtml = '<div class="result-content"><h3><i class="fas fa-list"></i> Todos os Bairros Disponíveis</h3><ul>';
+                collectionData.forEach(item => {
+                    allNeighborhoodsHtml += `<li data-neighborhood="${item.neighborhood}"><strong>${item.neighborhood}:</strong> ${item.day}</li>`;
+                });
+                allNeighborhoodsHtml += '</ul></div>';
+                
+                allNeighborhoodsListDiv.innerHTML = allNeighborhoodsHtml;
+                allNeighborhoodsListDiv.classList.add('show');
+            });
+
+            // Função para esconder todos os bairros
+            hideAllButton.addEventListener('click', () => {
+                allNeighborhoodsListDiv.classList.remove('show');
+                hideAllButton.style.display = 'none'; // Hide hide button
+                viewAllButton.style.display = 'block'; // Show view all button
+            });
+
+            // Event listener for clicking on a neighborhood in the full list
+            allNeighborhoodsListDiv.addEventListener('click', (e) => {
+                const listItem = e.target.closest('li[data-neighborhood]');
+                if (listItem) {
+                    const selectedNeighborhood = listItem.dataset.neighborhood;
+                    neighborhoodInput.value = selectedNeighborhood;
+                    searchButton.click(); // Trigger search for the selected neighborhood
+                    allNeighborhoodsListDiv.classList.remove('show'); // Hide the list
+                    hideAllButton.style.display = 'none'; // Hide hide button
+                    viewAllButton.style.display = 'block'; // Show view all button
+                }
+            });
         });
-    }
-});
+    </script>
+</body>
+</html> 
