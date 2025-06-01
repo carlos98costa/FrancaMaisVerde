@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guia completo de reciclagem em Franca-SP, com informações sobre separação de lixo, ecopontos e dicas de sustentabilidade.">
+    <meta name="keywords" content="reciclagem, Franca-SP, ecopontos, sustentabilidade, descarte de resíduos">
+    <meta name="author" content="Guia de Reciclagem para Franca-SP">
+    <title>Reciclagem em Franca-SP: Seu Guia Completo</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="https://via.placeholder.com/32?text=♻️">
+</head>
+<body>
+    <header role="banner">
+        <div class="header-content">
+            <img src="logo.jpeg" alt="Logo Guia de Reciclagem" class="header-logo">
+            <nav role="navigation" aria-label="Menu principal">
+                <ul>
+                    <li><a href="#importancia">A Importância da Reciclagem</a></li>
+                    <li><a href="#separar">Como Separar o Lixo</a></li>
+                    <li><a href="#descarte-especial">Descarte Especial</a></li>
+                    <li><a href="#ecopontos">Ecopontos em Franca</a></li>
+                    <li><a href="#dicas">Dicas Extras</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main">
+        <section id="importancia" aria-labelledby="importancia-heading">
+            <h2 id="importancia-heading">A Importância da Reciclagem</h2>
+            <p>A reciclagem é um pilar fundamental para a construção de um futuro mais sustentável. Ao transformar materiais descartados em novos produtos, reduzimos a dependência de recursos naturais virgens e minimizamos o impacto ambiental. Em Franca, cada ação individual de reciclagem contribui significativamente para:</p>
+            <ul>
+                <li><strong>Preservar os recursos naturais:</strong> Menos árvores são cortadas, menos minérios são extraídos e menos petróleo é consumido.</li>
+                <li><strong>Reduzir a poluição ambiental:</strong> Diminui a quantidade de lixo em aterros sanitários, evitando a contaminação do solo, da água e do ar.</li>
+                <li><strong>Economizar energia:</strong> A produção de materiais a partir de reciclados geralmente consome menos energia do que a partir de matérias-primas virgens.</li>
+                <li><strong>Gerar empregos e renda:</strong> A cadeia da reciclagem impulsiona a economia local, criando oportunidades de trabalho e desenvolvimento social.</li>
+                <li><strong>Combater as mudanças climáticas:</strong> A redução da produção de novos materiais diminui as emissões de gases de efeito estufa, contribuindo para mitigar o aquecimento global.</li>
+            </ul>
+            <p>Sua participação é essencial para um futuro mais verde e próspero para Franca e para o planeta!</p>
+        </section>
+
+        <section id="separar" aria-labelledby="separar-heading">
+            <h2 id="separar-heading">Como Separar Corretamente o Lixo</h2>
+            <p>A separação correta dos resíduos em casa é o primeiro passo para uma reciclagem eficiente. Conheça os principais tipos de materiais recicláveis e como descartá-los:</p>
+            
+            <div class="waste-type" role="region" aria-labelledby="plastico-heading">
+                <h3 id="plastico-heading">Plástico</h3>
+                <ul>
+                    <li><strong>O que pode:</strong> Garrafas PET (refrigerante, água), embalagens de produtos de limpeza e higiene (shampoo, desinfetante), potes de margarina e iogurte, sacolas plásticas, tubos de PVC, brinquedos plásticos.</li>
+                    <li><strong>Como descartar:</strong> Lave e seque as embalagens para remover resíduos, dobrando ou amassando para reduzir o volume. Plásticos mais rígidos (como baldes) também são recicláveis.</li>
+                    <li><strong>O que não pode:</strong> Plásticos tipo "isopor" (EPS) - alguns pontos específicos aceitam, mas não a coleta comum; embalagens metalizadas (salgadinhos, biscoitos); plásticos com resíduos orgânicos pesados (ex: embalagens de carne, embalagens de gordura).</li>
+                </ul>
+            </div>
+
+            <div class="waste-type" role="region" aria-labelledby="papel-heading">
+                <h3 id="papel-heading">Papel</h3>
+                <ul>
+                    <li><strong>O que pode:</strong> Jornais, revistas, caixas de papelão (desmontadas), cadernos, envelopes, folhas de escritório, embalagens longa vida (tetra pak - lavadas e secas), cartões.</li>
+                    <li><strong>Como descartar:</strong> Mantenha seco e limpo. Caixas de papelão devem ser desmontadas para economizar espaço.</li>
+                    <li><strong>O que não pode:</strong> Papel higiênico, guardanapos e lenços de papel sujos, papel celofane, papel carbono, etiquetas adesivas, fotografias, papel plastificado ou metalizado, papéis engordurados.</li>
+                </ul>
+            </div>
+
+            <div class="waste-type" role="region" aria-labelledby="metal-heading">
+                <h3 id="metal-heading">Metal</h3>
+                <ul>
+                    <li><strong>O que pode:</strong> Latas de alumínio (refrigerante, cerveja), latas de aço (molho de tomate, sardinha), panelas sem cabo, ferragens, arames, pregos, clipes, papel alumínio limpo.</li>
+                    <li><strong>Como descartar:</strong> Lave e seque as latas para remover resíduos. Amasse as latas para reduzir o volume. Panelas e outros objetos podem ser descartados sem a necessidade de lavagem rigorosa.</li>
+                    <li><strong>O que não pode:</strong> Esponjas de aço (Bombril), pilhas e baterias (descarte em locais específicos, veja abaixo), latas de tinta ou produtos tóxicos, objetos cortantes soltos.</li>
+                </ul>
+            </div>
+
+            <div class="waste-type" role="region" aria-labelledby="vidro-heading">
+                <h3 id="vidro-heading">Vidro</h3>
+                <ul>
+                    <li><strong>O que pode:</strong> Garrafas de bebidas (cerveja, vinho, refrigerante), potes de alimentos (azeitonas, maionese), frascos de perfume e cosméticos.</li>
+                    <li><strong>Como descartar:</strong> Lave e seque as embalagens. Remova rótulos e tampas (que podem ser de outro material). Para a segurança dos coletores, embale cacos de vidro em jornal ou caixa de papelão antes de descartar.</li>
+                    <li><strong>O que não pode:</strong> Espelhos, lâmpadas (descarte especial), louças, cerâmicas, porcelanas, vidros de automóveis, óculos, cristais, vidros planos (janelas).</li>
+                </ul>
+            </div>
+
+            <p><strong>Importante:</strong> Resíduos orgânicos (restos de alimentos, cascas de frutas e legumes) não são recicláveis nos sistemas tradicionais. Eles podem ser compostados em casa para gerar adubo ou descartados no lixo comum.</p>
+        </section>
+
+        <section id="descarte-especial" aria-labelledby="descarte-especial-heading">
+            <h2 id="descarte-especial-heading">Descarte de Resíduos Especiais em Franca</h2>
+            <p>Alguns tipos de resíduos requerem descarte específico para evitar danos ao meio ambiente e à saúde pública. Em Franca, você pode descartá-los da seguinte forma:</p>
+
+            <div class="special-waste" role="region" aria-labelledby="lixo-eletronico-heading">
+                <h3 id="lixo-eletronico-heading">Lixo Eletrônico (E-lixo)</h3>
+                <p>Computadores, celulares, televisores, impressoras, pilhas, baterias e outros aparelhos eletrônicos não devem ser descartados no lixo comum. Eles contêm substâncias tóxicas.</p>
+                <p><strong>Onde descartar:</strong> Os Ecopontos de Franca geralmente aceitam eletrônicos. Grandes redes de varejo de eletrônicos também possuem pontos de coleta. Fique atento a campanhas específicas de coleta de lixo eletrônico promovidas pela prefeitura.</p>
+            </div>
+
+            <div class="special-waste" role="region" aria-labelledby="oleo-cozinha-heading">
+                <h3 id="oleo-cozinha-heading">Óleo de Cozinha Usado</h3>
+                <p>Não descarte óleo de cozinha na pia ou no ralo! Ele polui a água e causa entupimentos.</p>
+                <p><strong>Onde descartar:</strong> Os Ecopontos de Franca são os locais indicados para o descarte de óleo de cozinha usado. Armazene o óleo frio em garrafas PET e leve até um dos ecopontos.</p>
+            </div>
+
+            <div class="special-waste" role="region" aria-labelledby="pilhas-baterias-heading">
+                <h3 id="pilhas-baterias-heading">Pilhas e Baterias</h3>
+                <p>Contêm metais pesados que são prejudiciais ao meio ambiente e à saúde.</p>
+                <p><strong>Onde descartar:</strong> Além dos Ecopontos, muitos supermercados, lojas de eletrônicos e algumas agências bancárias possuem coletores específicos para pilhas e baterias usadas.</p>
+            </div>
+
+            <div class="special-waste" role="region" aria-labelledby="medicamentos-heading">
+                <h3 id="medicamentos-heading">Medicamentos Vencidos ou Não Usados</h3>
+                <p>Nunca descarte medicamentos no lixo comum, privada ou pia. Eles podem contaminar o solo e a água e prejudicar a fauna.</p>
+                <p><strong>Onde descartar:</strong> Leve medicamentos vencidos ou não utilizados para as <strong>farmácias</strong>. Muitas farmácias em Franca (grandes redes ou independentes) possuem coletores específicos para o descarte seguro de medicamentos, conforme regulamentação da ANVISA.</p>
+            </div>
+
+            <p>Em caso de dúvida sobre outros tipos de resíduos, entre em contato com a Secretaria de Meio Ambiente de Franca ou os responsáveis pelos Ecopontos.</p>
+        </section>
+
+        <section id="ecopontos" aria-labelledby="ecopontos-heading">
+            <h2 id="ecopontos-heading">Ecopontos em Franca-SP</h2>
+            <p>Em Franca, os Ecopontos são locais estratégicos para o descarte correto de diversos tipos de resíduos que não são coletados pelo serviço comum de lixo. Isso inclui entulho, madeira, poda de árvores, móveis velhos, óleo de cozinha usado, eletrônicos, pilhas e baterias, entre outros. Utilize o mapa abaixo para encontrar o Ecoponto mais próximo de você e clique sobre o marcador para mais detalhes!</p>
+            <div id="map" role="region" aria-label="Mapa interativo com ecopontos em Franca"></div>
+            <p class="map-note">Observação: A localização dos Ecopontos pode ser alterada ou novos pontos podem ser criados pela prefeitura. Sempre verifique informações atualizadas junto à Prefeitura Municipal de Franca ou órgãos ambientais locais.</p>
+            <div class="button-group">
+                <button id="showLocations" aria-label="Mostrar ecopontos no mapa">Mostrar Ecopontos no Mapa</button>
+                <button id="resetMap" aria-label="Redefinir mapa" style="display: none;">Redefinir Mapa</button>
+            </div>
+        </section>
+
+        <section id="dicas" aria-labelledby="dicas-heading">
+            <h2 id="dicas-heading">Dicas Adicionais para a Sustentabilidade</h2>
+            <p>Reciclar é essencial, mas é apenas uma parte de um estilo de vida mais sustentável. Lembre-se dos 5 Rs da sustentabilidade:</p>
+            <ul>
+                <li><strong>Reduzir:</strong> Consuma menos e de forma mais consciente. Evite o desperdício, opte por produtos com menos embalagens e duráveis.</li>
+                <li><strong>Reutilizar:</strong> Dê nova vida a objetos que seriam descartados. Transforme potes de vidro em organizadores, use sacolas retornáveis, doe o que não usa mais.</li>
+                <li><strong>Reciclar:</strong> Separe corretamente seus resíduos para que eles possam ser transformados em novos produtos (como explicado acima).</li>
+                <li><strong>Repensar:</strong> Reflita sobre seus hábitos de consumo e seu impacto no meio ambiente. Pergunte-se se você realmente precisa de algo antes de comprar.</li>
+                <li><strong>Recusar:</strong> Diga "não" a produtos e serviços que causam danos ambientais ou sociais desnecessários (ex: canudos plásticos, sacolas plásticas).</li>
+            </ul>
+            <p>Além disso, considere:</p>
+            <ul>
+                <li><strong>Compostagem:</strong> Transforme resíduos orgânicos (restos de alimentos, cascas) em adubo rico para plantas. Isso reduz drasticamente o lixo enviado aos aterros.</li>
+                <li><strong>Consumo Consciente de Água e Energia:</strong> Pequenas mudanças em casa fazem uma grande diferença na preservação dos recursos naturais.</li>
+                <li><strong>Participe:</strong> Engaje-se em ações e projetos de sustentabilidade em Franca. Sua voz e participação são importantes!</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2025 Guia de Reciclagem para Franca-SP. Todos os direitos reservados.</p>
+        <p>Desenvolvido com o compromisso de promover a sustentabilidade em nossa cidade.</p>
+    </footer>
+
+    <button id="backToTopBtn" aria-label="Voltar ao topo">⬆️</button>
+
+    <div id="ecopointModal" class="modal" role="dialog" aria-labelledby="modalEcopointName">
+        <div class="modal-content">
+            <span class="close-button" aria-label="Fechar modal">&times;</span>
+            <h3 id="modalEcopointName"></h3>
+            <p><strong>Endereço:</strong> <span id="modalEcopointAddress"></span></p>
+            <p><strong>Horário de Funcionamento:</strong> <span id="modalEcopointHours"></span></p>
+            <p id="modalEcopointDescription"></p>
+            <h4>Materiais Aceitos:</h4>
+            <ul id="modalEcopointMaterials"></ul>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
