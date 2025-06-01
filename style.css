@@ -103,7 +103,7 @@ nav ul li a.active {
 }
 
 /* Mobile Menu Button */
-.mobile-menu-button {
+.menu-toggle {
     display: none;
     background: none;
     border: none;
@@ -140,16 +140,16 @@ nav ul li a.active {
     bottom: -8px;
 }
 
-.mobile-menu-button.active .hamburger {
+.menu-toggle.active .hamburger {
     background-color: transparent;
 }
 
-.mobile-menu-button.active .hamburger::before {
+.menu-toggle.active .hamburger::before {
     transform: rotate(45deg);
     top: 0;
 }
 
-.mobile-menu-button.active .hamburger::after {
+.menu-toggle.active .hamburger::after {
     transform: rotate(-45deg);
     bottom: 0;
 }
@@ -159,7 +159,7 @@ nav ul li a.active {
     header {
         padding: 1rem 20px; /* Add some padding to the header on smaller screens */
     }
-    .mobile-menu-button {
+    .menu-toggle {
         display: block;
     }
 
