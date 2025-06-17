@@ -227,6 +227,14 @@ nav ul li a.active {
         align-items: center;
     }
 }
+/* Estilo para o Logo Responsivo */
+.logo-image {
+    max-width: 600px; /* Define a largura máxima da imagem */
+    width: 90%;       /* Faz a imagem ocupar 90% do container, tornando-a flexível */
+    height: auto;     /* Mantém a proporção da imagem automaticamente */
+    display: block;   /* Permite a aplicação de margem automática */
+    margin: 0 auto 20px; /* Centraliza a imagem e adiciona uma margem inferior */
+}
 
 /* Conteúdo Principal */
 main {
