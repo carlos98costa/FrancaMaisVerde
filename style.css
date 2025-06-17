@@ -251,6 +251,8 @@ section {
 /* Headings */
 #features-heading {
     border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0ox; /* Reduz a margem inferior de 20px para 10px */
 }
 
 h2 {

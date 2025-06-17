@@ -393,15 +393,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // === INÍCIO DA CORREÇÃO PARA IMAGEM INVISÍVEL ===
     // Adicionar animação de carregamento para imagens
     const images = document.querySelectorAll('img');
     images.forEach(img => {
-        img.addEventListener('load', function() {
-            this.style.opacity = '1';
-        });
+        // Função para tornar a imagem visível
+        const showImage = () => {
+            img.style.opacity = '1';
+        };
+
+        // Define o estilo inicial
         img.style.opacity = '0';
         img.style.transition = 'opacity 0.3s ease';
+
+        // Verifica se a imagem já foi carregada (do cache)
+        if (img.complete) {
+            showImage();
+        } else {
+            // Se não, adiciona o event listener para quando ela carregar
+            img.addEventListener('load', showImage);
+            // Adiciona um event listener de erro para o caso da imagem não ser encontrada
+            img.addEventListener('error', () => {
+                console.error(`Erro ao carregar a imagem: ${img.src}`);
+                img.style.opacity = '1'; // Torna o ícone de imagem quebrada visível
+            });
+        }
     });
+    // === FIM DA CORREÇÃO ===
+
 
     // Coletar dados por bairro
     const collectionData = [
