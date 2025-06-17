@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile menu functionality
+    // Funcionalidades do menu mobile
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const navMenu = document.querySelector('.nav-menu');
 
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenuButton.classList.toggle('active');
         });
 
-        // Close menu when clicking outside
+        // Fecha o menu ao clicar fora dele
         document.addEventListener('click', (event) => {
             if (!event.target.closest('.nav-menu') && !event.target.closest('.mobile-menu-button')) {
                 navMenu.classList.remove('active');
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Close menu when window is resized to desktop size
+        // Fecha o menu quando a janela é redimensionada para o tamanho desktop
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 navMenu.classList.remove('active');
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Data for ecopoints
+    // dados dos ecopontos
     const ecopontos = [
         {
             id: 1,
@@ -108,17 +108,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
-    // Initialize map
+    // inicialização do mapa
     const mapContainer = document.getElementById('map');
-    let map; // Declare map variable in a scope accessible to geolocation callbacks
+    let map; // Variável do mapa
     if (mapContainer) {
         mapContainer.classList.add('loading');
         map = L.map('map', {
             zoomControl: true,
-            scrollWheelZoom: false // Disable scroll wheel zoom for better UX
+            scrollWheelZoom: false // Desabilitar zoom com a roda do mouse para melhor UX
         }).setView([-20.5407, -47.4005], 12);
 
-        // Add OpenStreetMap tile layer
+        // Adicionar camada de tile do OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             maxZoom: 19
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mapContainer.classList.remove('loading');
         });
 
-        // Custom icon for markers
+        // Ícone personalizado para marcadores
         const customIcon = L.icon({
             iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
             iconSize: [25, 41],
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             shadowAnchor: [12, 41]
         });
 
-        // Map controls
+        // Controles do mapa
         const showLocationsButton = document.getElementById('showLocations');
         const resetMapButton = document.getElementById('resetMap');
         let markersLayer = L.layerGroup().addTo(map);
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ecopontos.forEach(ecoponto => {
                     const marker = L.marker([ecoponto.lat, ecoponto.lng], { 
                         icon: customIcon,
-                        keyboard: true // Enable keyboard navigation
+                        keyboard: true // Habilitar navegação por teclado
                     }).addTo(markersLayer);
                     marker.bindPopup(
                         `<b>${ecoponto.name}</b><br>` +
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Back to top button
+    // Botão "Voltar ao Topo"
     const backToTopBtn = document.getElementById('backToTopBtn');
     let scrollTimeout;
 
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Modal functionality
+    // Funcionalidade do modal
     const ecopointModal = document.getElementById('ecopointModal');
     const closeButton = document.querySelector('.close-button');
 
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Carousel functionality
+    // Funcionalidade do carrossel
     const carousel = document.querySelector('.carousel');
     if (carousel) {
         const slides = document.querySelectorAll('.carousel-slide');
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentSlide = 0;
         const slideCount = slides.length;
 
-        // Create dots
+        // Inicializa o carrossel
         if (dotsContainer) {
             slides.forEach((_, index) => {
                 const dot = document.createElement('div');
@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
             goToSlide(currentSlide);
         }
 
-        // Auto-advance slides every 5 seconds (5000ms)
+        // Auto-avançar slides a cada 5 segundos (5000ms)
         let slideInterval = setInterval(nextSlide, 5000);
 
         // Não pausar autoplay ao clicar nos botões
@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Touch support for mobile
+        // Suporte a toque para dispositivos móveis
         let touchStartX = 0;
         let touchEndX = 0;
         
@@ -364,11 +364,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Initialize first slide
+        // Inicializa o primeiro slide
         goToSlide(0);
     }
 
-    // Active navigation link highlighting
+    // Destaque do link de navegação ativo
     const currentLocation = window.location.pathname;
     const navLinks = document.querySelectorAll('nav ul li a');
     
@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Smooth scroll for anchor links
+    // Smooth scroll para links âncora
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Add loading animation for images
+    // Adicionar animação de carregamento para imagens
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         img.addEventListener('load', function() {
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
         img.style.transition = 'opacity 0.3s ease';
     });
 
-    // Collection data by neighborhood
+    // Coletar dados por bairro
     const collectionData = [
         { neighborhood: "BELVEDERE BANDEIRANTE", day: "QUARTA-FEIRA - DIA" },
         { neighborhood: "CABCEIRA DAS CANDEIAS", day: "QUINTA-FEIRA - DIA" },
@@ -725,7 +725,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { neighborhood: "VILLAGIO MUNDO NOVO", day: "TERÇA-FEIRA -  DIA" },
     ];
 
-    // Collection day search functionality
+    // Coletar dados por bairro
     const neighborhoodInput = document.getElementById('neighborhood-input');
     const searchButton = document.getElementById('search-button');
     const resultArea = document.getElementById('result-area');
@@ -742,10 +742,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Allow searching by pressing Enter in the input field
+        // Permitir pesquisa pressionando Enter no campo de entrada
         neighborhoodInput.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
-                event.preventDefault(); // Prevent form submission if it were a form
+                event.preventDefault(); 
                 searchButton.click();
             }
         });
