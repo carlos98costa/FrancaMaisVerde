@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="carousel.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
     <style>
     h1, h2 {
@@ -132,6 +133,30 @@
             </ul>
         </nav>
     </header>
+
+    <div class="carousel-container">
+        <div class="carousel">
+            
+            <div class="carousel-slide">
+                <img src="images/ecopontoPortinari.jpg" alt="Caçambas amarelas no Ecoponto Jardim Portinari">
+            </div>
+            <div class="carousel-slide">
+                <img src="images/ecopontoLuiza1.jpg" alt="Placa do Ecoponto Jardim Luiza">
+            </div>
+             <div class="carousel-slide">
+                <img src="images/ecoponto.jpg" alt="Vista externa do Ecoponto Parque das Esmeraldas">
+            </div>
+            <div class="carousel-slide">
+                <img src="images/ecopontoLuiza.jpg" alt="Área de descarte coberta no Ecoponto Jardim Luiza">
+            </div>
+            <div class="carousel-slide">
+                <img src="images/ecocity.jpg" alt="Área de descarte coberta no Ecoponto Jardim Luiza">
+            </div>
+        </div>
+        <button class="carousel-button prev" aria-label="Slide anterior">&#10094;</button>
+        <button class="carousel-button next" aria-label="Próximo slide">&#10095;</button>
+        <div class="carousel-dots"></div>
+    </div>
 
     <main id="main-content" role="main">
         <section id="ecopontos-intro" aria-labelledby="ecopontos-intro-heading">
@@ -330,4 +355,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
