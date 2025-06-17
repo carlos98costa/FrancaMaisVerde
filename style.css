@@ -249,6 +249,10 @@ section {
 }
 
 /* Headings */
+#features-heading {
+    border-bottom: none;
+}
+
 h2 {
     font-family: var(--font-heading);
     color: var(--primary-color);
