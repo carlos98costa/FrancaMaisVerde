@@ -1,0 +1,99 @@
+h1, h2 {
+  text-align: center;
+}
+.materiais-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+.material-item {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+  padding: 20px 18px 16px 18px;
+  text-align: center;
+  border-left: 6px solid #2ecc71;
+  transition: box-shadow 0.2s;
+}
+.material-item:hover {
+  box-shadow: 0 6px 18px rgba(44, 62, 80, 0.13);
+}
+.material-item h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #3498db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.material-item ul {
+  text-align: left;
+  margin: 0 0 10px 0;
+  padding-left: 18px;
+}
+.material-note {
+  font-size: 0.95em;
+  color: #888;
+  margin-top: 6px;
+}
+.tips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  margin: 30px 0 20px 0;
+}
+.tip-card {
+  background: #f1f8e9;
+  border-left: 4px solid #f1c40f;
+  border-radius: 8px;
+  padding: 16px 18px;
+  min-width: 220px;
+  max-width: 320px;
+  box-shadow: 0 1px 4px rgba(44, 62, 80, 0.07);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.tip-card i {
+  color: #f1c40f;
+  font-size: 1.3em;
+}
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin: 32px 0 0 0;
+}
+.contact-card {
+  background: #e3f2fd;
+  border-left: 4px solid #3498db;
+  border-radius: 8px;
+  padding: 18px 22px;
+  min-width: 220px;
+  max-width: 320px;
+  box-shadow: 0 1px 4px rgba(44, 62, 80, 0.07);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.contact-card i {
+  color: #3498db;
+  font-size: 1.2em;
+}
+@media (max-width: 700px) {
+  .materiais-grid, .tips-container, .contact-container {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .intro-ecoponto { padding: 12px 8px; }
+} 

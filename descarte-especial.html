@@ -10,71 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <style>
-    h1, h2 {
-      text-align: center;
-    }
-    .intro-especial {
-      background: #fff3cd;
-      border-left: 5px solid #f1c40f;
-      border-radius: 8px;
-      padding: 18px 24px;
-      margin: 30px auto 32px auto;
-      max-width: 700px;
-      font-size: 1.12rem;
-      color: #856404;
-      box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
-    }
-    .special-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-      margin: 32px 0;
-    }
-    .special-card {
-      background: #f8f9fa;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
-      padding: 20px 18px 16px 18px;
-      text-align: left;
-      border-left: 6px solid #3498db;
-      transition: box-shadow 0.2s;
-      min-height: 210px;
-    }
-    .special-card h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 1.15rem;
-      color: #3498db;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .special-card p {
-      margin-bottom: 8px;
-    }
-    .special-card strong {
-      color: #2ecc71;
-    }
-    .tips-especial {
-      background: #e8f5e9;
-      border-left: 4px solid #2ecc71;
-      border-radius: 8px;
-      padding: 16px 18px;
-      margin: 24px auto 0 auto;
-      max-width: 700px;
-      color: #2c3e50;
-      font-size: 1.05rem;
-      box-shadow: 0 1px 4px rgba(44, 62, 80, 0.07);
-    }
-    @media (max-width: 700px) {
-      .special-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      .intro-especial, .tips-especial { padding: 12px 8px; }
-    }
-    </style>
+    <link rel="stylesheet" href="descarte-especial-inline.css">
 </head>
 <body>
     <header>
@@ -143,6 +79,7 @@
 
     <button id="backToTopBtn" aria-label="Voltar ao topo"><i class="fas fa-arrow-up"></i></button>
     <script src="script.js"></script>
+    <script src="descarte-especial-inline.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const mobileMenu = document.getElementById('mobile-menu');

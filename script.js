@@ -419,10 +419,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
-    // === FIM DA CORREÇÃO ===
 
 
-    // Coletar dados por bairro
+    // Bairros de Franca
     const collectionData = [
         { neighborhood: "BELVEDERE BANDEIRANTE", day: "QUARTA-FEIRA - DIA" },
         { neighborhood: "CABCEIRA DAS CANDEIAS", day: "QUINTA-FEIRA - DIA" },
